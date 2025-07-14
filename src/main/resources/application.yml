@@ -3,4 +3,12 @@ spring:
     name: ai-code-helper
   profiles:
     active: local
-
+langchain4j:
+  community:
+    dashscope:
+      chat-model:
+        model-name: qwen-max
+        api-key: <You API Key here>
+      embedding-model:
+        model-name: text-embedding-v4
+        api-key: <You API Key here>
