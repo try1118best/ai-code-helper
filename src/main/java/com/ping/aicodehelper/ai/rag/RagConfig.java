@@ -55,10 +55,8 @@ public class RagConfig {
                 .documentSplitter(documentByParagraphSplitter)
                 // 为了提高搜索质量，为每个 TextSegment 添加文档名称
                 .textSegmentTransformer(textSegment ->
-                    TextSegment.from(textSegment.metadata().getString("file_name") +
-                            "\n" + textSegment.text(),textSegment.metadata()))
-
-
+                        TextSegment.from(textSegment.metadata().getString("file_name") +
+                                "\n" + textSegment.text(), textSegment.metadata()))
                 // 使用指定的向量模型
                 .embeddingModel(qwenEmbeddingModel)
                 .embeddingStore(embeddingStore)
@@ -68,11 +66,11 @@ public class RagConfig {
         ingestor.ingest(documents);
 
         // 4. 自定义内容查询器
-        ContentRetriever contentRetriever = EmbeddingStoreContentRetriever.builder()
+        EmbeddingStoreContentRetriever contentRetriever = EmbeddingStoreContentRetriever.builder()
                 .embeddingStore(embeddingStore)
                 .embeddingModel(qwenEmbeddingModel)
                 .maxResults(5) // 最多 5 个检索结果
-                .minScore(0.55) // 过滤掉分数小于 0.75 的结果
+                .minScore(0.75) // 过滤掉分数小于 0.75 的结果
                 .build();
 
         log.info("RAG 配置完成，内容检索器已创建");

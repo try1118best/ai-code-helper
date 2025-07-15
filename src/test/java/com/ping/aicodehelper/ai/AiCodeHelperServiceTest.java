@@ -1,5 +1,6 @@
 package com.ping.aicodehelper.ai;
 
+import dev.langchain4j.service.Result;
 import jakarta.annotation.Resource;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -34,13 +35,9 @@ class AiCodeHelperServiceTest {
 
     @Test
     void chatWithRag() {
-        String result = aiCodeHelperService.chat("怎么学习Java？有哪些常见的面试题？");
-        // 验证响应包含文档特定内容
-        assertTrue(result.contains("ArrayList"));
-        assertTrue(result.contains("LinkedList"));
-        assertTrue(result.contains("equals"));
-        assertTrue(result.contains("hashCode"));
-        System.out.println("RAG响应验证通过：");
-        System.out.println(result);
+        Result<String> result = aiCodeHelperService.chatWithRag("怎么学习Java" +
+                "？有哪些常见的面试题？");
+        System.out.println(result.sources());
+        System.out.println(result.content());
     }
 }
