@@ -1,13 +1,15 @@
 package com.ping.aicodehelper.ai;
 
+import com.ping.aicodehelper.ai.guardrail.SafeInputGuardrail;
 import dev.langchain4j.service.MemoryId;
 import dev.langchain4j.service.Result;
 import dev.langchain4j.service.SystemMessage;
+import dev.langchain4j.service.guardrail.InputGuardrails;
 import dev.langchain4j.service.spring.AiService;
 
 import java.util.List;
 
-
+@InputGuardrails(SafeInputGuardrail.class)
 public interface AiCodeHelperService {
 
     @SystemMessage(fromResource = "system-prompt.txt")
