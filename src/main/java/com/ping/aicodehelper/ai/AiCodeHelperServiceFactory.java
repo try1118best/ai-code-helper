@@ -15,7 +15,7 @@ import org.springframework.context.annotation.Configuration;
 public class AiCodeHelperServiceFactory {
 
     @Resource
-    private ChatModel qwenchatModel;
+    private ChatModel myQwenchatModel;
 
     @Resource
     private ContentRetriever contentRetriever;
@@ -29,7 +29,7 @@ public class AiCodeHelperServiceFactory {
         ChatMemory chatMemory = MessageWindowChatMemory.withMaxMessages(10);
         // 构造 AI Service
         AiCodeHelperService aiCodeHelperService = AiServices.builder(AiCodeHelperService.class)
-                .chatModel(qwenchatModel)
+                .chatModel(myQwenchatModel)
                 .chatMemory(chatMemory) // 会话记忆
                 .contentRetriever(contentRetriever) // RAG 检索增强生成
                 .tools(new InterviewQuestionTool()) // 工具调用
