@@ -1,6 +1,7 @@
 package com.ping.aicodehelper.ai;
 
 import com.ping.aicodehelper.ai.tools.InterviewQuestionTool;
+import dev.langchain4j.mcp.McpToolProvider;
 import dev.langchain4j.memory.ChatMemory;
 import dev.langchain4j.memory.chat.MessageWindowChatMemory;
 import dev.langchain4j.model.chat.ChatModel;
@@ -19,6 +20,9 @@ public class AiCodeHelperServiceFactory {
     @Resource
     private ContentRetriever contentRetriever;
 
+    @Resource
+    private McpToolProvider mcpToolProvider;
+
     @Bean
     public AiCodeHelperService aiCodeHelperService() { //自动创建接口的实现类
         // 会话记忆
@@ -29,6 +33,7 @@ public class AiCodeHelperServiceFactory {
                 .chatMemory(chatMemory) // 会话记忆
                 .contentRetriever(contentRetriever) // RAG 检索增强生成
                 .tools(new InterviewQuestionTool()) // 工具调用
+                .toolProvider(mcpToolProvider) // MCP工具调用
                 .build();
         return aiCodeHelperService;
     }
